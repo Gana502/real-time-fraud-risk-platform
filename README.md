@@ -2,15 +2,17 @@
 
 ## Overview
 
-A Python-based data engineering project that simulates a real-time fraud detection workflow.
+A Python-based data engineering project that simulates a real-time fraud detection platform.
 
 The platform:
 
 * Generates transaction events
-* Validates data quality
+* Publishes events to Kafka
+* Consumes transactions from Kafka
+* Performs data quality validation
 * Calculates fraud risk scores
-* Classifies transactions into risk bands
-* Exposes a REST API for scoring transactions
+* Stores scored transactions
+* Exposes a REST API
 * Includes automated tests
 
 ---
@@ -19,6 +21,10 @@ The platform:
 
 ```text
 Transaction Producer
+        ↓
+Kafka Topic
+        ↓
+Kafka Consumer
         ↓
 Data Quality Validation
         ↓
@@ -34,9 +40,11 @@ FastAPI Service
 ## Tech Stack
 
 * Python
+* Apache Kafka
+* Docker
 * FastAPI
 * Pytest
-* Git/GitHub
+* Git / GitHub
 
 ---
 
@@ -46,12 +54,14 @@ FastAPI Service
 real-time-fraud-risk-platform/
 
 ├── api/
+├── consumer/
 ├── producer/
 ├── rules/
 ├── tests/
 ├── data/
-├── README.md
-└── requirements.txt
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
 ```
 
 ---
@@ -75,24 +85,44 @@ real-time-fraud-risk-platform/
 
 ### Risk Bands
 
-| Score | Band   |
-| ----- | ------ |
-| 0-39  | LOW    |
-| 40-69 | MEDIUM |
-| 70+   | HIGH   |
+| Score | Risk Band |
+| ----- | --------- |
+| 0-39  | LOW       |
+| 40-69 | MEDIUM    |
+| 70+   | HIGH      |
 
 ---
 
-## Run Transaction Producer
+## Start Kafka
 
 ```bash
-python producer/transaction_producer.py
+docker compose up -d
 ```
 
-Output:
+Verify:
 
-```text
-data/transactions_scored.jsonl
+```bash
+docker ps
+```
+
+---
+
+## Run Producer
+
+Publishes transactions to Kafka.
+
+```bash
+python -m producer.kafka_producer
+```
+
+---
+
+## Run Consumer
+
+Consumes transactions from Kafka, validates and scores them.
+
+```bash
+python -m consumer.kafka_consumer
 ```
 
 ---
@@ -119,26 +149,27 @@ python -m pytest -v
 
 ---
 
-## Sample API Response
+## What This Project Demonstrates
 
-```json
-{
-  "transaction_id": "TXN001",
-  "risk_score": 100,
-  "risk_band": "HIGH"
-}
-```
+* Event-driven architecture
+* Real-time data ingestion
+* Kafka producer/consumer pattern
+* Data quality validation
+* Business rule processing
+* REST API development
+* Automated testing
+* Containerised infrastructure using Docker
 
 ---
 
 ## Future Enhancements
 
-* Kafka streaming
 * PySpark Structured Streaming
-* Docker
+* Bronze / Silver / Gold architecture
+* PostgreSQL persistence
 * CI/CD with GitHub Actions
-* PostgreSQL
-* Grafana Monitoring
+* Grafana monitoring
+* Cloud deployment
 
 ```
 ```
