@@ -16,18 +16,7 @@ The project also demonstrates containerisation, CI/CD and Kubernetes deployment.
 ---
 
 ## Technologies Used
-
-* Python
-* Apache Kafka
-* FastAPI
-* Pytest
-* Docker
-* GitHub Actions
-* GitHub Container Registry (GHCR)
-* Kubernetes
-* Terraform
-* Git
-
+<img width="1622" height="970" alt="image" src="https://github.com/user-attachments/assets/3cfd6a3c-a7d3-499a-a20b-c221ac31cd54" />
 ---
 
 ## Features
