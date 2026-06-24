@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fraud-risk-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fraud-risk-api
+  template:
+    metadata:
+      labels:
+        app: fraud-risk-api
+    spec:
+      containers:
+        - name: fraud-risk-api
+          image: ghcr.io/gana502/fraud-risk-api:latest
+          ports:
+            - containerPort: 8000
