@@ -13,34 +13,6 @@ The project also demonstrates containerisation, CI/CD and Kubernetes deployment.
 ## Architecture
 <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/b8e9d33d-67c5-4444-9ee4-9dc8ada9ffd5" />
 
-```text
-Transaction Producer
-        │
-        ▼
-   Kafka Topic
-        │
-        ▼
- Kafka Consumer
-        │
-        ▼
-Data Quality Validation
-        │
-        ▼
- Fraud Scoring Rules
-        │
-        ▼
- FastAPI Service
-        │
-        ▼
- Docker Image
-        │
-        ▼
-GitHub Container Registry
-        │
-        ▼
- Kubernetes
-```
-
 ---
 
 ## Technologies Used
