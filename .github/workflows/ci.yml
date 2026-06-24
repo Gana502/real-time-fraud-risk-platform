@@ -9,7 +9,6 @@ jobs:
 test:
 runs-on: ubuntu-latest
 
-```
 steps:
   - uses: actions/checkout@v4
 
@@ -23,13 +22,11 @@ steps:
 
   - run: |
       python -m pytest -v
-```
 
 build-and-push:
 needs: test
 runs-on: ubuntu-latest
 
-```
 permissions:
   contents: read
   packages: write
@@ -51,4 +48,3 @@ steps:
   - name: Push image
     run: |
       docker push ghcr.io/${{ github.repository_owner }}/fraud-risk-api:latest
-```
