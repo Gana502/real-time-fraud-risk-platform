@@ -2,18 +2,11 @@
 
 ## Overview
 
-A Python-based data engineering project that simulates a real-time fraud detection platform.
+This project demonstrates how to build a simplified real-time fraud detection platform using modern data engineering and DevOps technologies.
 
-The platform:
+The solution simulates transaction events, processes them in real time using Kafka, validates data quality, applies fraud scoring rules and exposes the results through a FastAPI service.
 
-* Generates transaction events
-* Publishes events to Kafka
-* Consumes transactions from Kafka
-* Performs data quality validation
-* Calculates fraud risk scores
-* Stores scored transactions
-* Exposes a REST API
-* Includes automated tests
+The project also demonstrates containerisation, CI/CD and Kubernetes deployment.
 
 ---
 
@@ -21,127 +14,116 @@ The platform:
 
 ```text
 Transaction Producer
-        ↓
-Kafka Topic
-        ↓
-Kafka Consumer
-        ↓
+        │
+        ▼
+   Kafka Topic
+        │
+        ▼
+ Kafka Consumer
+        │
+        ▼
 Data Quality Validation
-        ↓
-Fraud Scoring Engine
-        ↓
-JSONL Output
-        ↓
-FastAPI Service
+        │
+        ▼
+ Fraud Scoring Rules
+        │
+        ▼
+ FastAPI Service
+        │
+        ▼
+ Docker Image
+        │
+        ▼
+GitHub Container Registry
+        │
+        ▼
+ Kubernetes
 ```
 
 ---
 
-## Tech Stack
+## Technologies Used
 
 * Python
 * Apache Kafka
-* Docker
 * FastAPI
 * Pytest
-* Git / GitHub
+* Docker
+* GitHub Actions
+* GitHub Container Registry (GHCR)
+* Kubernetes
+* Terraform
+* Git
+
+---
+
+## Features
+
+* Simulated real-time transaction producer
+* Kafka-based event streaming
+* Data quality validation
+* Rule-based fraud scoring
+* REST API using FastAPI
+* Automated unit testing using Pytest
+* Docker containerisation
+* CI/CD using GitHub Actions
+* Docker image publishing to GitHub Container Registry
+* Kubernetes deployment
+* Infrastructure as Code using Terraform
 
 ---
 
 ## Project Structure
 
 ```text
-real-time-fraud-risk-platform/
-
-├── api/
-├── consumer/
-├── producer/
-├── rules/
-├── tests/
-├── data/
-├── docker-compose.yml
-├── requirements.txt
-└── README.md
+api/
+consumer/
+producer/
+rules/
+tests/
+data/
+k8s/
+terraform/
+.github/workflows/
 ```
 
 ---
 
-## Features
+## Running the Project
 
-### Data Quality Checks
-
-* Required field validation
-* Null value validation
-* Positive amount validation
-
-### Fraud Scoring Rules
-
-| Rule                  | Score |
-| --------------------- | ----- |
-| Amount > £1000        | +40   |
-| Non-UK Transaction    | +25   |
-| Online/Mobile Channel | +10   |
-| New Device            | +25   |
-
-### Risk Bands
-
-| Score | Risk Band |
-| ----- | --------- |
-| 0-39  | LOW       |
-| 40-69 | MEDIUM    |
-| 70+   | HIGH      |
-
----
-
-## Start Kafka
+### 1. Start Kafka
 
 ```bash
 docker compose up -d
 ```
 
-Verify:
-
-```bash
-docker ps
-```
-
----
-
-## Run Producer
-
-Publishes transactions to Kafka.
+### 2. Start the Producer
 
 ```bash
 python -m producer.kafka_producer
 ```
 
----
-
-## Run Consumer
-
-Consumes transactions from Kafka, validates and scores them.
+### 3. Start the Consumer
 
 ```bash
 python -m consumer.kafka_consumer
 ```
 
----
-
-## Run API
+### 4. Start the API
 
 ```bash
 uvicorn api.main:app --reload
 ```
 
-Swagger UI:
+Open:
 
 ```text
-http://127.0.0.1:8000/docs
+http://localhost:8000/docs
 ```
 
 ---
 
-## Run Tests
+## Running Tests
 
 ```bash
 python -m pytest -v
@@ -149,27 +131,39 @@ python -m pytest -v
 
 ---
 
-## What This Project Demonstrates
+## CI/CD Pipeline
 
-* Event-driven architecture
-* Real-time data ingestion
-* Kafka producer/consumer pattern
-* Data quality validation
-* Business rule processing
-* REST API development
-* Automated testing
-* Containerised infrastructure using Docker
+Every push to the GitHub repository automatically triggers GitHub Actions.
+
+The pipeline:
+
+* Installs project dependencies
+* Runs automated tests
+* Builds a Docker image
+* Publishes the image to GitHub Container Registry (GHCR)
+
+---
+
+## Kubernetes Deployment
+
+The application is deployed to Kubernetes using Deployment and Service resources.
+
+Terraform is used to provision and manage the Kubernetes infrastructure.
 
 ---
 
 ## Future Enhancements
 
+* Structured logging
+* Dead Letter Queue (DLQ)
+* Monitoring and alerting
 * PySpark Structured Streaming
-* Bronze / Silver / Gold architecture
-* PostgreSQL persistence
-* CI/CD with GitHub Actions
-* Grafana monitoring
-* Cloud deployment
+* Machine learning fraud detection
+* Cloud deployment (AWS/Azure)
 
-```
-```
+---
+
+## Author
+
+**Gana**
+Lead Data Engineer
